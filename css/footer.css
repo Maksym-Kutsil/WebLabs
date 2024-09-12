@@ -1,0 +1,31 @@
+footer {
+    padding: 53px 120px;
+    background-color: #F8F8F8;
+}
+.footerTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(196, 196, 196, 1);
+}
+.footerTop p {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 28px;
+    color: rgba(132, 132, 132, 1);
+    font-family: muli;
+}
+.footerBottom {
+    display: flex;
+    justify-content: center;
+}
+.footerBottom ul {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+}
+.footeLink {
+    transition: 1s ease-in-out;
+}

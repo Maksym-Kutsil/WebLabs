@@ -1,0 +1,56 @@
+header {
+    display: flex;
+    padding: 53px 120px;
+    justify-content: space-between;
+    margin-bottom: 72px;
+}
+.linkList {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+}
+.linsTop {
+    text-decoration: none;
+    color: rgba(184, 190, 205, 1);
+    font-weight: 400;
+    line-height: 19.36px;
+    font-size: 16px;
+    font-family: inter;
+}
+.boorger {
+    width: 41px;
+    display: none;
+}
+nav {
+    display: flex;
+    gap: 34px;
+    align-items: center;
+}
+.navButtonsContainer {
+    display: flex;
+    gap: 18px;
+}
+.loginBtn {
+    padding: 15px 46px;
+    border: 1px solid rgba(251, 143, 29, 1);
+    color: rgba(251, 143, 29, 1);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inter;
+    text-decoration: none;
+    transition: 0.5s ease-in-out;
+}
+.registerBtn {
+    padding: 15px 36px;
+    color: white;
+    border: 0;
+    background-color: rgba(251, 143, 29, 1);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inter;
+    text-decoration: none;
+    border: 1px solid rgba(251, 143, 29, 1);
+    transition: 0.5s ease-in-out;
+}

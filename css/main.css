@@ -1,0 +1,152 @@
+.heroSection {
+    display: flex;
+    justify-content: space-evenly;
+}
+.heroSectionContent h1 {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 80px;
+    text-align: left;
+    margin-bottom: 74px;
+    font-family: playfairDisplay;
+}
+.heroSectionContent h3 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26.63px;
+    text-align: left;
+    margin-bottom: 48px;
+    font-family: inter;
+}
+.selectionsTop {
+    margin-bottom: 35px;
+    display: flex;
+    gap: 30px;
+}
+.selectionsBottom {
+    margin-bottom: 47px;
+    display: flex;
+    gap: 30px;
+}
+.selectsContainer select {
+    width: 220px;
+    height: 52px;
+    border-radius: 6px;
+    padding: 0 0 0 21px;
+    font-family: inter;
+    appearance: none;
+    background: url('../images/slectVector.svg') no-repeat right 26px center;
+}
+.heroSectionButton {
+    padding: 20px 60px;
+    color: white;
+    border: 0;
+    background-color: rgba(251, 143, 29, 1);
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: 700;   
+    border-radius: 10px;
+    font-family: muli;
+    border: 1px solid rgba(251, 143, 29, 1);
+    transition: 0.5s ease-in-out;
+}
+.learnMoreSection {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 100px;
+    background-color: #F8F8F8;
+    padding: 20px 0;
+}
+.learnMoreSectionContent {
+    padding-top: 80px;
+}
+.learnMoreSectionContent h2{
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 50px;
+    color: rgba(0, 0, 0, 1);
+    font-family: playfairDisplay;
+    margin-bottom: 30px;
+}
+.learnMoreSectionContent p {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 30px;
+    width: 450px;
+    color: rgba(125, 121, 135, 1);
+    font-family: muli;
+    margin-bottom: 30px;
+}
+.learnMoreSectionButton {
+    padding: 21px 37px;
+    color: white;
+    border: 0;
+    background-color: rgba(251, 143, 29, 1);
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: 700;   
+    border-radius: 10px;
+    display: inline;
+    font-family: inter;
+    text-decoration: none;
+    border: 1px solid rgba(251, 143, 29, 1);
+    transition: 0.5s ease-in-out;
+}
+.destenationSection {
+    margin: 100px auto;
+    width: 85%;
+}
+.destenationSectionTop {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 56px;
+}
+.destenationSectionTop h2 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 50px;
+    font-family: playfairDisplay;
+}
+.destenationSectionTop a {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 60px;
+    color:rgba(251, 143, 29, 1);
+    text-decoration: none;
+    font-family: inter;
+}
+.vector {
+    transition: 1s ease-in-out;
+}
+.destenationSectionBottom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 25px;
+}
+.container {
+    position: relative;
+}
+.container img {
+    width: 100%;
+    border-radius: 10px;
+}
+.containerText {
+    position: absolute;
+    background-color: white;
+    bottom: 0;
+    padding: 20px 20px 0 0;
+    border-top-right-radius: 10px;
+    transition-duration: 1s;
+}
+.containerText h3 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 25px;
+    font-family: inter;
+}
+.containerText p {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    font-family: inter;
+}
