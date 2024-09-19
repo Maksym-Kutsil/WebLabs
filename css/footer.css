@@ -27,5 +27,40 @@ footer {
     gap: 35px;
 }
 .footeLink {
-    transition: 1s ease-in-out;
+    transition: 0.3s ease-in-out;
+}
+.footeLink:hover {
+    transform: scale(1.4);
+}
+@media only screen and (max-width: 2560px) and (min-width: 1600px) {
+    .footerTop p {
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 35px;
+    }
+}
+@media (max-width: 1200px) {
+    footer {
+        padding: 53px 70px;
+    }
+}
+@media (max-width: 950px) {
+    footer {
+        padding: 53px 45px;
+    }
+}
+@media (max-width: 840px) {
+    footer {
+        padding: 53px 40px;
+    }
+}
+@media (max-width: 510px) {
+    .footerTop {
+        flex-direction: column;
+        gap: 10px;
+        align-items: start;
+    }
+    footer {
+        padding: 40px 20px;
+    }
 }

@@ -1,8 +1,6 @@
 @import url("./css/header.css");
 @import url("./css/main.css");
 @import url("./css/footer.css");
-@import url("./css/adaptation.css");
-@import url("./css/animation.css");
 @font-face {
     font-family: 'inter';
     src: url(./fonts/Inter/static/Inter_18pt-Regular.ttf);

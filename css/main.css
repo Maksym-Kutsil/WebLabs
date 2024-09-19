@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-evenly;
 }
-.heroSectionContent h1 {
+.heroContent h1 {
     font-size: 64px;
     font-weight: 700;
     line-height: 80px;
@@ -10,7 +10,7 @@
     margin-bottom: 74px;
     font-family: playfairDisplay;
 }
-.heroSectionContent h3 {
+.heroContent h3 {
     font-size: 22px;
     font-weight: 600;
     line-height: 26.63px;
@@ -37,7 +37,7 @@
     appearance: none;
     background: url('../images/slectVector.svg') no-repeat right 26px center;
 }
-.heroSectionButton {
+.heroButton {
     padding: 20px 60px;
     color: white;
     border: 0;
@@ -50,6 +50,9 @@
     border: 1px solid rgba(251, 143, 29, 1);
     transition: 0.5s ease-in-out;
 }
+.heroButton:active {
+    transform: scale(0.8);
+}
 .learnMoreSection {
     display: flex;
     justify-content: space-evenly;
@@ -57,10 +60,10 @@
     background-color: #F8F8F8;
     padding: 20px 0;
 }
-.learnMoreSectionContent {
-    padding-top: 80px;
+.learnMoreContent {
+    padding: 40px 0;
 }
-.learnMoreSectionContent h2{
+.learnMoreContent h2{
     font-size: 36px;
     font-weight: 700;
     line-height: 50px;
@@ -68,21 +71,19 @@
     font-family: playfairDisplay;
     margin-bottom: 30px;
 }
-.learnMoreSectionContent p {
+.learnMoreContent p {
     font-size: 17px;
     font-weight: 300;
     line-height: 30px;
     width: 450px;
     color: rgba(125, 121, 135, 1);
     font-family: muli;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
-.learnMoreSectionButton {
+.learnMoreButton {
     padding: 21px 37px;
     color: white;
-    border: 0;
     background-color: rgba(251, 143, 29, 1);
-    border-radius: 4px;
     font-size: 17px;
     font-weight: 700;   
     border-radius: 10px;
@@ -92,22 +93,25 @@
     border: 1px solid rgba(251, 143, 29, 1);
     transition: 0.5s ease-in-out;
 }
+.learnMoreButton:active {
+    transform: scale(0.8);
+}
 .destenationSection {
     margin: 100px auto;
     width: 85%;
 }
-.destenationSectionTop {
+.destenationTop {
     display: flex;
     justify-content: space-between;
     margin-bottom: 56px;
 }
-.destenationSectionTop h2 {
+.destenationTop h2 {
     font-size: 36px;
     font-weight: 700;
     line-height: 50px;
     font-family: playfairDisplay;
 }
-.destenationSectionTop a {
+.destenationTop a {
     font-size: 17px;
     font-weight: 600;
     line-height: 60px;
@@ -115,20 +119,32 @@
     text-decoration: none;
     font-family: inter;
 }
+.destenationTop a:hover .vector {
+    margin-left: 30px;
+    transform: rotate(360deg)
+}
 .vector {
     transition: 1s ease-in-out;
 }
-.destenationSectionBottom {
+.destenationBottom {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 25px;
 }
 .container {
     position: relative;
-}
-.container img {
-    width: 100%;
+    overflow: hidden;
     border-radius: 10px;
+}
+.container:hover .card {
+    transform: scale(1.2);
+}
+.container:hover .containerText {
+    opacity: 0;
+}
+.card {
+    width: 100%;
+    transition: 0.5s ease-in-out;
 }
 .containerText {
     position: absolute;
@@ -136,7 +152,8 @@
     bottom: 0;
     padding: 20px 20px 0 0;
     border-top-right-radius: 10px;
-    transition-duration: 1s;
+    transition: 0.5s ease-in-out;
+    opacity: 100;
 }
 .containerText h3 {
     font-size: 17px;
@@ -149,4 +166,185 @@
     font-weight: 500;
     line-height: 24px;
     font-family: inter;
+}
+@media only screen and (max-width: 2560px) and (min-width: 1600px) {
+    .heroContent h1 {
+        font-size: 80px;
+        font-weight: 800;
+        line-height: 90px;
+    }
+    .heroContent h3 {
+        font-size: 30px;
+        font-weight: 800;
+        line-height: 30px;
+    }
+    .heroButton {
+        font-size: 25px;
+        font-weight: 800;
+    }
+    .learnMoreContent h2{
+        font-size: 43px;
+        font-weight: 800;
+        line-height: 58px;
+        color: rgba(0, 0, 0, 1);
+    }
+    .learnMoreContent p {
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 36px;
+        width: 500px;
+    }
+    .learnMoreButton {
+        font-size: 24px;
+        font-weight: 800;
+    }
+    .destenationTop h2 {
+        font-size: 45px;
+        font-weight: 800;
+        line-height: 60px;
+    }
+    .destenationTop a {
+        font-size: 25px;
+        font-weight: 800;
+        line-height: 66px;
+    }
+    .containerText h3 {
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 30px;
+    }
+    .containerText p {
+        font-size: 24px;
+        font-weight: 600;
+    }
+}
+@media only screen and (max-width: 1440px) and (min-width: 1200px) {
+    .heroContent h1 {
+        font-size: 48px;
+    }
+    .heroContent h3 {
+        font-size: 20px;
+    }
+    .heroButton {
+        padding: 15px 30px;
+        font-size: 18px;
+    }
+    .heroImg {
+        width: 500px;
+    }
+    .learnMoreContent h2 {
+        font-size: 36px;
+    }
+    .learnMoreContent p {
+        font-size: 16px;
+    }
+}
+@media (max-width: 1200px) {
+    .heroSection img {
+        width: 400px;
+    }
+    .learnMoreSection img {
+        width: 400px;
+    }
+}
+@media (max-width: 950px) {
+    .selectsContainer select {
+        width: 150px;
+    }
+    .learnMoreSection img {
+        width: 350px;
+    }
+}
+@media (max-width: 840px) {
+    .heroSection img {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .learnMoreSection img {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .heroSection {
+        flex-direction: column;
+    }
+    .learnMoreSection {
+        flex-direction: column-reverse;
+        margin-top: 50px;
+    }
+    .heroContent {
+        margin: 0 auto 80px;
+    }
+    .learnMoreContent {
+        margin: 40px auto 80px;
+        padding: 0;
+    }
+    .destenationBottom {
+        grid-template-columns: 2fr 2fr;
+        row-gap: 25px;
+    }
+    .destenationSection {
+        margin: 50px auto;
+    }
+}
+@media (max-width: 570px) {
+    .destenationTop {
+        flex-direction: column;
+        align-items: start;
+        margin-bottom: 30px;
+    }
+}
+@media (max-width: 510px) {
+    .selectsContainer select {
+        width: 150px;
+    }
+    .heroSection img {
+        width: 350px;
+    }
+    .learnMoreSection img {
+        width: 350px;
+    }
+    .learnMoreContent p {
+        width: 300px;
+    }
+    .learnMoreContent h2 {
+        width: 300px;
+    }
+    .destenationBottom {
+        grid-template-columns: 4fr;
+    }
+    .heroContent {
+        margin: 0 auto 50px;
+    }
+    .learnMoreContent {
+        margin: 20px auto 50px;
+        order: 0;
+    }
+    .destenationSection {
+        margin: 20px auto;
+    }
+}
+@media (max-width: 380px) {
+    .selectionsTop {
+        flex-direction: column;
+    }
+    .selectionsBottom {
+        flex-direction: column;
+    }
+    .selectsContainer select {
+        width: 100%;
+    }
+    .heroContent h1 {
+        font-size: 50px;
+        font-weight: 700;
+        line-height: 80px;
+        text-align: left;
+        margin-bottom: 74px;
+        font-family: playfairDisplay;
+    }
+    .heroSection img {
+        width: 250px;
+    }
+    .learnMoreSection img {
+        width: 250px;
+    }
 }

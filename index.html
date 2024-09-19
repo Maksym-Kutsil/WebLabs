@@ -8,34 +8,43 @@
 </head>
 <body>
     <header>
-        <div class="headerLeft">
-            <img src="./images/logo.svg" alt="logo">
-        </div>
-        <img class="boorger" src="./images/boorger.png" alt="boorger">
-        <nav>
-            <ul class="linkList">
-                <li>
-                    <a href="#" class="linsTop">Home</a>
-                </li>
-                <li>
-                    <a href="#" class="linsTop">Destinations</a>
-                </li>
-                <li>
-                    <a href="#" class="linsTop">About</a>
-                </li>
-                <li>
-                    <a href="#" class="linsTop">Partner</a>
-                </li>
-            </ul>
-            <div class="navButtonsContainer">
-                <a href="#" class="loginBtn">Login</a>
-                <a href="#" class="registerBtn">Register</a>
+        <div id="headerNav">
+            <div class="headerLeft">
+                <img src="./images/logo.svg" alt="logo">
             </div>
-        </nav>
+            <div id="boorger">
+                <div id="line1"></div>
+                <div id="line2"></div>
+                <div id="line3"></div>
+            </div>
+            <nav id="navList">
+                <ul class="linkList">
+                    <li>
+                        <a href="#" class="linsTop">Home</a>
+                    </li>
+                    <li>
+                        <a href="#" class="linsTop">Destinations</a>
+                    </li>
+                    <li>
+                        <a href="#" class="linsTop">About</a>
+                    </li>
+                    <li>
+                        <a href="#" class="linsTop">Partner</a>
+                    </li>
+                </ul>
+                <div class="navButtonsContainer">
+                    <a href="#" class="loginBtn">Login</a>
+                    <a href="#" class="registerBtn">Register</a>
+                </div>
+            </nav>
+        </div>
+        <div id="navContainer">
+            
+        </div>
     </header>
     <main>
         <section class="heroSection">
-            <div class="heroSectionContent">
+            <div class="heroContent">
                 <h1>
                     Explore and <br> Travel
                 </h1>
@@ -72,54 +81,54 @@
                             <option>option3</option>
                         </select>
                     </div> 
-                    <button type="button" class="heroSectionButton">Explore</button>
+                    <button type="button" class="heroButton">Explore</button>
                 </form>
             </div>
-            <img class="heroSectionImg" src="./images/section1.svg" alt="section1">
+            <img class="heroImg" src="./images/section1.svg" alt="section1">
         </section>
         <section class="learnMoreSection">
-            <img class="learnMoreSectionImg" src="./images/section2.svg" alt="section2">
-            <div class="learnMoreSectionContent">
+            <img class="learnMoreImg" src="./images/section2.svg" alt="section2">
+            <div class="learnMoreContent">
                 <h2>A new way to explore the <br> world </h2>
                 <p>
                     For decades travellers have reached for Lonely Planet books when looking to plan and execute their perfect 
                     trip, but now, they can also let Lonely Planet Experiences lead the way
                 </p>
-                <a href="#" class="learnMoreSectionButton">Learn more</a>
+                <a href="#" class="learnMoreButton">Learn more</a>
             </div>
         </section>
         <section class="destenationSection">
-            <div class="destenationSectionTop">
+            <div class="destenationTop">
                 <h2>Featured destinations</h2>
                 <a href="#">
                     View all
                     <img class="vector" src="./images/Vector.svg" alt="Vector">
                 </a>
             </div>
-            <div class="destenationSectionBottom">
+            <div class="destenationBottom">
                 <div class="container">
-                    <img src="./images/section3Img1.svg" alt="Indonesia image">
+                    <img class="card" src="./images/section3Img1.svg" alt="Indonesia image">
                     <div class="containerText">
                         <h3>Raja Ampat</h3>
                         <p>Indonesia</p>
                     </div>
                 </div>
                 <div class="container">
-                    <img src="./images/section3Img2.svg" alt="China image">
+                    <img class="card" src="./images/section3Img2.svg" alt="China image">
                     <div class="containerText">
                         <h3>Fanjingshan</h3>
                         <p>China</p>
                     </div>
                 </div>
                 <div class="container">
-                    <img src="./images/section3Img3.svg" alt="Switzerland img">
+                    <img class="card" src="./images/section3Img3.svg" alt="Switzerland img">
                     <div class="containerText">
                         <h3>Vevey</h3>
                         <p>Switzerland</p>
                     </div>
                 </div>
                 <div class="container">
-                    <img src="./images/section3Img4.svg" alt="Montenegro image">
+                    <img class="card" src="./images/section3Img4.svg" alt="Montenegro image">
                     <div class="containerText">
                         <h3>Skadar</h3>
                         <p>Montenegro</p>
@@ -165,5 +174,6 @@
             </ul>
         </div>
     </footer>
+    <script src="./script.js"></script>
 </body>
 </html>

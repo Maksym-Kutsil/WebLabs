@@ -1,8 +1,11 @@
 header {
-    display: flex;
     padding: 53px 120px;
-    justify-content: space-between;
     margin-bottom: 72px;
+}
+#headerNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .linkList {
     list-style: none;
@@ -16,10 +19,18 @@ header {
     line-height: 19.36px;
     font-size: 16px;
     font-family: inter;
+    transition: 0.3s ease-in-out;
 }
-.boorger {
-    width: 41px;
+.linsTop:hover {
+    color: black;
+}
+#boorger {
     display: none;
+    border: 0;
+    transition: 0.2s ease-in-out;
+    width: 41px;
+    background-color: white;
+    cursor: pointer;
 }
 nav {
     display: flex;
@@ -53,4 +64,84 @@ nav {
     text-decoration: none;
     border: 1px solid rgba(251, 143, 29, 1);
     transition: 0.5s ease-in-out;
+}
+.loginBtn:active {
+    transform: scale(0.8);
+}
+.registerBtn:active {
+    transform: scale(0.8);
+}
+#navContainer {
+    display: none;
+    flex-direction: column;
+    align-items: start;
+    padding-top: 30px;
+    align-items: end;
+}
+#boorger {
+    display: none;
+    width: 50px;
+    height: 50px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#boorger div {
+    width: 30px;
+    height: 2px;
+    background-color: black;
+    transition: 0.2s ease-in-out;
+    transform-origin: right;
+}
+@media only screen and (max-width: 2560px) and (min-width: 1600px) {
+    .linsTop {
+        font-weight: 600;
+        line-height: 22px;
+        font-size: 20px;
+    }
+    .loginBtn {
+        padding: 20px 53px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .registerBtn {
+        padding: 20px 53px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+}
+@media (max-width: 1200px) {
+    header {
+        padding: 53px 70px;
+    }
+}
+@media (max-width: 950px) {
+    header {
+        padding: 53px 45px;
+    }
+}
+@media (max-width: 840px) {
+    header {
+        padding: 53px 40px;
+        margin: 0;
+    }
+    nav {
+        display: none;
+    }
+    .linkList {
+        flex-direction: column;
+        align-items: end;
+    }
+    .navButtonsContainer {
+        flex-direction: column;
+    }
+    #boorger {
+        display: flex;
+    }
+}
+@media (max-width: 510px) {
+    header {
+        padding: 40px 20px;
+        margin: 0;
+    }
 }
