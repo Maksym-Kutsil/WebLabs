@@ -1,3 +1,4 @@
+let header = document.getElementById("header")
 let boorger = document.getElementById("boorger")
 let navList = document.getElementById("navList")
 let navContainer = document.getElementById("navContainer")
@@ -46,15 +47,20 @@ boorger.addEventListener("click", function () {
         navList.style.flexDirection = "column"
         navList.style.alignItems = "end"
         navContainer.style.display = "flex"
+        header.setAttribute("class", "headerOpen")
+        document.body.style.overflow = "hidden"
         burgerToCross()
         navContainer.appendChild(navList)
         clicked = true
+
     } else {
         navContainer.style.display = "none"
         while (navContainer.firstChild) {
             navContainer.removeChild(navContainer.firstChild)
         }
         crossToBurger()
+        document.body.style.overflow = "auto"
+        header.setAttribute("class", "header")
         clicked = false
     }
 })
