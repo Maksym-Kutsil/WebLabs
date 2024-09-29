@@ -1,0 +1,19 @@
+@import url("../css/header.css");
+@import url("../css/footer.css");
+@import url("../css/read_page.css");
+@font-face {
+    font-family: 'inter';
+    src: url(../fonts/Inter/static/Inter_18pt-Regular.ttf);
+}
+@font-face {
+    font-family: 'playfairDisplay';
+    src: url(../fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf);
+}
+@font-face {
+    font-family: 'muli';
+    src: url(../fonts/muli/Muli-Regular.ttf);
+}
+* {
+    margin: 0;
+    padding: 0;
+}

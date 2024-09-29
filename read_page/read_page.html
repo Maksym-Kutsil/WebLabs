@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./read_page.css">
+</head>
+<body>
+    <header id="header">
+        <div id="headerNav">
+            <div class="headerLeft">
+                <img src="../images/logo.svg" alt="logo">
+            </div>
+            <div id="boorger">
+                <div id="line1"></div>
+                <div id="line2"></div>
+                <div id="line3"></div>
+            </div>
+            <nav id="navList">
+                <ul class="linkList">
+                    <li>
+                        <a href="../landing_page/index.html" class="linsTop">Home</a>
+                    </li>
+                    <li>
+                        <a href="../read_page/read_page.html" class="linsTop">Destinations</a>
+                    </li>
+                    <li>
+                        <a href="#" class="linsTop">About</a>
+                    </li>
+                    <li>
+                        <a href="#" class="linsTop">Partner</a>
+                    </li>
+                </ul>
+                <div class="navButtonsContainer">
+                    <a href="#" class="loginBtn">Login</a>
+                    <a href="#" class="registerBtn">Register</a>
+                </div>
+            </nav>
+        </div>
+        <div id="navContainer">
+            
+        </div>
+    </header>
+    <main>
+        <section class="menu">
+            <button id="create">Create destination</button>
+            <h1 class="headline">Manage distination</h1>
+            <div class="sortContainer">
+                <h3>Sort by:</h3>
+                <select name="sort" id="sort">
+                    <option value="select">Select one</option>
+                    <option value="priceUp">Price(0-99)</option>
+                    <option value="priceDown">Price(99-0)</option>
+                    <option value="nameUp">Name(A-Z)</option>
+                    <option value="nameDown">Name(Z-A)</option>
+                </select>
+            </div>
+            <h2>Count price</h2>
+            <button id="count">Count</button>
+            <h3 id="total">Total: 0$</h3>
+        </section>
+        <section class="items">
+            <div class="itemButtons">
+                <input type="text" placeholder="Search..." id="searchInput">
+                <button id="search">Search</button>
+                <button id="clear">Clear</button>
+            </div>
+            <div id="itemContainer">
+
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footerTop">
+            <img src="../images/logo.svg" alt="logo">
+            <p>
+                ©2020 Thousand Sunny. All rights reserved
+            </p>
+        </div>
+        <div class="footerBottom">
+            <ul>
+                <li>
+                    <a href="https://x.com/?lang=uk">
+                        <img class="footeLink" src="../images/twitter.svg" alt="twitter">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/?locale=uk_UA">
+                        <img class="footeLink" src="../images/facebook.svg" alt="facebook">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/">
+                        <img class="footeLink" src="../images/instagram.svg" alt="instagram">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://ua.linkedin.com/">
+                        <img class="footeLink" src="../images/linkedin.svg" alt="linkedin">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/">
+                        <img class="footeLink" src="../images/youtube.svg" alt="youtube">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <script src="../scripts/header.js"></script>
+    <script src="./read_page.js"></script>
+</body>
+</html>
