@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="./read_page.css">
 </head>
 <body>
+    <div id="modal">
+        <div class="modal">
+            <button id="closeBtn">
+                <img src="../images/closeBtn.png" alt="closeBtn">
+            </button>
+            <p id="modalText">Modal</p>
+        </div>
+    </div>
     <header id="header">
         <div id="headerNav">
             <div class="headerLeft">
@@ -45,6 +53,17 @@
     <main>
         <section class="menu">
             <button id="create">Create destination</button>
+            <div id="createContainer">
+                <div class="createImgContainer">
+                    <input type="file" id="createImg" accept="image/jpeg, image/png, image/jpg, image/svg">
+                    <div class="custom" id="customText">
+                        Choose img
+                    </div>
+                </div>
+                <input type="text" id="createName" placeholder="Enter destination name">
+                <input type="text" id="createText" placeholder="Enter text">
+                <input type="text" id="createPrice" placeholder="Enter price in $">
+            </div>
             <h1 class="headline">Manage distination</h1>
             <div class="sortContainer">
                 <h3>Sort by:</h3>
