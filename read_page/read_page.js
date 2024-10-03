@@ -30,16 +30,6 @@ function showCards(arr) {
         let itemImg = document.createElement("img")
         itemImg.src = card.img
 
-        let imgEdit = document.createElement("input")
-        imgEdit.setAttribute("type", "file")
-        imgEdit.setAttribute("class", "editAreaText")
-        imgEdit.setAttribute("id", "forLabel")
-
-        let imgLabel = document.createElement("label")
-        imgLabel.textContent = "Change image"
-        imgLabel.setAttribute("for", "forLabel")
-        imgLabel.setAttribute("class", "imgEdit")
-
         let itemInfo = document.createElement("div")
         itemInfo.setAttribute("class", "itemInfo")
 
@@ -76,8 +66,6 @@ function showCards(arr) {
         remove.setAttribute("class", "remove")
 
         item.appendChild(itemImg)
-        item.appendChild(imgEdit)
-        item.appendChild(imgLabel)
         itemInfo.appendChild(itemName)
         itemInfo.appendChild(nameEdit)
         itemInfo.appendChild(itemText)
@@ -95,7 +83,7 @@ function showCards(arr) {
         itemContainer.appendChild(item)
 
         remove.addEventListener("click", function () {
-            if (arr[card.id] == undefined) {
+            if (arr[card.id] === undefined) {
                 arr.splice(arr.length - 1, 1)
             } else {
                 arr.splice(card.id, 1)
@@ -107,7 +95,7 @@ function showCards(arr) {
         })
 
         edit.addEventListener("click", function () {
-            if (edit.textContent == "Edit") {
+            if (edit.textContent === "Edit") {
                 edit.textContent = "Save"
 
                 nameEdit.textContent = itemName.textContent
@@ -121,27 +109,10 @@ function showCards(arr) {
                 itemName.style.display = "none"
                 itemText.style.display = "none"
                 itemCost.style.display = "none"
-
-                imgLabel.style.display = "flex"
-
-                let imagePreview = ""
-
-                imgEdit.addEventListener("change", function () {
-                    if (imgEdit.files && imgEdit.files[0]) {
-                        let reader = new FileReader()
-                        reader.onload = function (e) {
-                            imagePreview = e.target.result
-                            itemImg.src = imagePreview
-                        }
-                        reader.readAsDataURL(imgEdit.files[0])
-                        imgLabel.textContent = "Changed"
-                    }
-                })
             } else {
                 edit.textContent = "Edit"
 
                 let costEditFormated = costEdit.value.slice(0,-1)
-                console.log(costEditFormated)
 
                 activeArr[card.id].name = nameEdit.value
                 activeArr[card.id].text = textEdit.value
@@ -154,7 +125,6 @@ function showCards(arr) {
                 nameEdit.style.display = "none"
                 textEdit.style.display = "none"
                 costEdit.style.display = "none"
-                imgLabel.style.display = "none"
 
                 itemName.style.display = "block"
                 itemText.style.display = "block"
@@ -256,7 +226,7 @@ search.addEventListener("click", function () {
             }
         })
         activeArr = newArr
-        activeArr.forEach((card,i) => {
+        activeArr.forEach((card, i) => {
             card.id = i
         })
         showCards(activeArr)
@@ -264,8 +234,9 @@ search.addEventListener("click", function () {
     }
 })
 
+
 searchInput.addEventListener("input", function () {
-    if (searchInput.value.length == 0) {
+    if (searchInput.value.length === 0) {
         searchInput.value = ""
         clear()
         showCards(cards)

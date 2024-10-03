@@ -272,6 +272,7 @@ h2 {
     width: 100%;
     text-align: end;
     cursor: pointer;
+    background: none;
 }
 #closeBtn img {
     width: 30px;
