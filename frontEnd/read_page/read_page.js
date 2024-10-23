@@ -1,41 +1,32 @@
-// class Card {
-//     constructor(id,img, name, text, cost, lastUpdated) {
-//         this.id = id
-//         this.img = img
-//         this.name = name
-//         this.text = text
-//         this.cost = cost
-//         this.lastUpdated = lastUpdated
-//     }
-// }
+import { getCards, addCard, updateCard, deleteCard , createCard } from './api.js'
 
-// let itemContainer = document.getElementById("itemContainer")
+class Card {
+    constructor(id,img, name, text, cost, lastUpdated) {
+        this.id = id
+        this.img = img
+        this.name = name
+        this.text = text
+        this.cost = cost
+        this.lastUpdated = lastUpdated
+    }
+}
 
-// let card1 = new Card (0,"../images/newZealand.jpg","New Zealand","Нова́ Зела́ндія (англ. New Zealand, маор. Aotearoa[en]) — суверенна острівна держава у південно-західній частині Тихого океану. Розташована на двох великих островах: Північний (маор. Te Ika-a-Māui) і Південний (маор. Te Waipounamu) та близько 600 прилеглих дрібніших островів. Столиця країни — місто Веллінгтон, найбільше місто — Окленд. Населення Нової Зеландії становить близько 5,395,410 осіб.",15,"20/03/2023")
-// let card2 = new Card (1,"../images/iceLand.jpg","Iceland","Ісла́ндія, раніше Ісля́ндія[4] (ісл. Ísland [ˈistlant] ( прослухати)) — нордична острівна держава в Європі, розташована у північній частині Атлантичного океану на Серединно-Атлантичному хребті, з населенням близько 364 000 і площею 103 тис. км². Столиця і найбільше місто — Рейк'явік, де, разом із прилеглими районами у південно-західному регіоні країни, проживає близько двох третин населення країни.",30,"13/04/2020")
-// let card3 = new Card (2,"../images/mexico.jpg","Mexico","Ме́ксика (ісп. México [ˈmexiko] ( прослухати); Ме́хіко, науатль Mēxihco), офіційно Сполу́чені Шта́ти Ме́ксики (ісп. Estados Unidos Mexicanos [esˈtaðos uˈniðoz mexiˈkanos] ( прослухати); науатль Mēxihcatl Tlacetilīlli Tlahtohcāyōtl) — країна в південній частині Північної Америки. Межує на півночі зі Сполученими Штатами Америки; на півдні й на заході омивається Тихим океаном; на південному сході — з Гватемалою.",10,"27/04/2006")
+let activeArr = []
+const itemContainer = document.getElementById("itemContainer")
 
-// let cards = [card1,card2,card3]
-
-let activeArr
-
-getCardsData()
-.then (data => {
-    console.log(data)
-    activeArr = data
-    showCards(activeArr)
-})
-
-
-
-// window.addEventListener("load", function() {
-//     showCards(activeArr)
-// })
+getCards()
+    .then(data => {
+        activeArr = data;
+        showCards(activeArr)
+    })
 
 function showCards(arr) {
+    clear()
+
     arr.forEach((card) => {
         let item = document.createElement("div")
         item.setAttribute("class", "item")
+        item.setAttribute("data-id", card.id)
 
         let itemImg = document.createElement("img")
         itemImg.src = card.img
@@ -86,87 +77,89 @@ function showCards(arr) {
 
         buttons.appendChild(edit)
         buttons.appendChild(remove)
-        
+
         item.appendChild(itemInfo)
         item.appendChild(buttons)
-
         itemContainer.appendChild(item)
 
         remove.addEventListener("click", function () {
-            if (arr[card.id] === undefined) {
-                arr.splice(arr.length - 1, 1)
-            } else {
-                arr.splice(card.id, 1)
-            }
-            arr.forEach((card, index) => {
-                card.id = index
+            deleteCard(card.id).then( (res) => {
+                getCards()
+                .then(data => {
+                    activeArr = data
+                    showCards(activeArr)
+                    searching()
+                })
             })
-            itemContainer.removeChild(item)
         })
 
         edit.addEventListener("click", function () {
             if (edit.textContent === "Edit") {
                 edit.textContent = "Save"
-
-                nameEdit.textContent = itemName.textContent
-                textEdit.textContent = itemText.textContent
-                costEdit.textContent = itemCost.textContent
-
-                nameEdit.style.display = "block"
-                textEdit.style.display = "block"
-                costEdit.style.display = "block"
-
+                nameEdit.value = itemName.textContent
+                textEdit.value = itemText.textContent
+                costEdit.value = itemCost.textContent.slice(0, -1)
                 itemName.style.display = "none"
                 itemText.style.display = "none"
                 itemCost.style.display = "none"
+                nameEdit.style.display = "block"
+                textEdit.style.display = "block"
+                costEdit.style.display = "block"
             } else {
                 edit.textContent = "Edit"
 
-                let costEditFormated = costEdit.value.slice(0,-1)
-
-                activeArr[card.id].name = nameEdit.value
-                activeArr[card.id].text = textEdit.value
-                activeArr[card.id].cost = +costEditFormated
-
-                itemName.textContent = nameEdit.value
-                itemText.textContent = textEdit.value
-                itemCost.textContent = costEdit.value
+                let updatedCard = {
+                    name: nameEdit.value,
+                    text: textEdit.value,
+                    cost: parseFloat(costEdit.value)
+                }
 
                 nameEdit.style.display = "none"
                 textEdit.style.display = "none"
                 costEdit.style.display = "none"
-
                 itemName.style.display = "block"
                 itemText.style.display = "block"
                 itemCost.style.display = "block"
+                updated.textContent = `Last updated: ${new Date().toLocaleDateString()}`
 
-                let now = new Date()
-
-                updated.textContent = `Last updated: ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
-                activeArr[card.id].updated = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
-
-                sortCards(activeArr)
+                updateCard(card.id, updatedCard).then(() =>
+                    getCards()
+                    .then(data => {
+                    activeArr = data
+                    showCards(activeArr)
+                    searching()
+                    })
+                )
             }
         })
     })
 }
 
-function clear () {
-    while(itemContainer.firstChild) {
+function clear() {
+    while (itemContainer.firstChild) {
         itemContainer.removeChild(itemContainer.firstChild)
     }
 }
 
-let sort = document.getElementById("sort")
+let count = document.getElementById("count")
+let total = document.getElementById("total")
 
-sort.addEventListener("input", function() {
-    sortCards(activeArr)
-    activeArr.forEach((card,i) => {
-        card.id = i
+count.addEventListener("click", function () {
+    let result = 0
+    activeArr.forEach(card => {
+        console.log(card.cost)
+        result += card.cost
     })
+    total.textContent = `Total: ${result}$`
 })
 
-function sortCards (activeArr) {
+let sort = document.getElementById("sort")
+
+sort.addEventListener("input" , function () {
+    sorting()
+})
+
+function sorting () {
     switch (sort.value) {
         case "priceUp":
             clear()
@@ -191,70 +184,53 @@ function sortCards (activeArr) {
     }
 }
 
-let count = document.getElementById("count")
-let total = document.getElementById("total")
-
-count.addEventListener("click", function () {
-    let res = 0
-    activeArr.forEach(card => {
-        res += card.cost
-    })
-    total.innerText = `Total: ${res}$`
-})
-
 let searchInput = document.getElementById("searchInput")
 let search = document.getElementById("search")
 let clearInput = document.getElementById("clear")
 
 clearInput.addEventListener("click", function () {
-    searchInput.value = ""
-    clear()
-    showCards(cards)
-    activeArr = cards
-    sortCards(activeArr)
-    total.innerText = `Total: 0$`
+    clearSearch()
 })
 
 function clearSearch () {
+    let arr = []
     searchInput.value = ""
-    clear()
-    showCards(cards)
-    activeArr = cards
-    sortCards(activeArr)
+    getCards()
+        .then(res => {
+            res.forEach(card => {
+                arr.push(card)
+            })
+            activeArr = arr
+            sorting()
+        })
     total.innerText = `Total: 0$`
 }
 
 search.addEventListener("click", function () {
+    searching()
+})
+
+function searching () {
     if (searchInput.value.length > 0) {
-        clear()
-        total.innerText = `Total: 0$`
-        let newArr = []
+        let newArr = []   
         let input = searchInput.value.toLowerCase().trim()
-        cards.forEach(card => {
+        activeArr.forEach(card => {
             if (card.name.toLowerCase().includes(input)) {
                 newArr.push(card)
             }
         })
         activeArr = newArr
-        activeArr.forEach((card, i) => {
-            card.id = i
-        })
         showCards(activeArr)
-        sortCards(activeArr)
+        sorting()
     }
-})
-
+}
 
 searchInput.addEventListener("input", function () {
     if (searchInput.value.length === 0) {
-        searchInput.value = ""
-        clear()
-        showCards(cards)
-        activeArr = cards
-        sortCards(activeArr)
-        total.innerText = `Total: 0$`
+        clearSearch()
     }
 })
+
 
 let create = document.getElementById("create")
 let createImg = document.getElementById("createImg")
@@ -262,6 +238,7 @@ let createName = document.getElementById("createName")
 let createText = document.getElementById("createText")
 let createPrice = document.getElementById("createPrice")
 let imagePreview = ""
+
 
 createImg.addEventListener("change", function () {
     let customText = document.getElementById("customText")
@@ -285,6 +262,7 @@ create.addEventListener("click", function () {
         let closeBtn = document.getElementById("closeBtn")
         
         if (namePatern.test(createName.value) && pricePatern.test(createPrice.value)) {
+            let cards = activeArr
             clear()
             let newCard = new Card(
                 cards.length,
@@ -294,10 +272,7 @@ create.addEventListener("click", function () {
                 +createPrice.value,
                 `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
             )
-            activeArr = cards
             cards.push(newCard)
-            showCards(cards)
-            sortCards(activeArr)
             searchInput.value = ""
             total.innerText = `Total: 0$`
 
@@ -309,7 +284,16 @@ create.addEventListener("click", function () {
             createText.value = ""
             createPrice.value = ""
             imagePreview = ""
-            customText.textContent = "Choose img"          
+            customText.textContent = "Choose img"   
+            activeArr = cards
+            createCard(newCard).then(() =>
+                getCards()
+                .then(data => {
+                activeArr = data
+                showCards(activeArr)
+                searching()
+                })
+            ) 
         } else {
             openModal()
             modalText.textContent = "Дані введені в невірному форматі"
@@ -336,4 +320,3 @@ function closeModal () {
     document.body.style.overflowY = "auto"
     document.body.classList.remove("no-scroll")
 }
-
