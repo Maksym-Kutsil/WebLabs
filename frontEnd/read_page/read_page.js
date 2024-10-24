@@ -1,7 +1,9 @@
-import { getCards, addCard, updateCard, deleteCard , createCard } from './api.js'
+import { getCards, addCard, updateCard, deleteCard, createCard } from './api.js'
+
+const url = "http://localhost:8080"
 
 class Card {
-    constructor(id,img, name, text, cost, lastUpdated) {
+    constructor(id, img, name, text, cost, lastUpdated) {
         this.id = id
         this.img = img
         this.name = name
@@ -16,9 +18,9 @@ const itemContainer = document.getElementById("itemContainer")
 
 getCards()
     .then(data => {
-        activeArr = data;
+        activeArr = data
         showCards(activeArr)
-    })
+    });
 
 function showCards(arr) {
     clear()
@@ -83,13 +85,12 @@ function showCards(arr) {
         itemContainer.appendChild(item)
 
         remove.addEventListener("click", function () {
-            deleteCard(card.id).then( (res) => {
+            deleteCard(card.id).then(() => {
                 getCards()
-                .then(data => {
-                    activeArr = data
-                    showCards(activeArr)
-                    searching()
-                })
+                    .then(data => {
+                        activeArr = data
+                        showCards(activeArr)
+                    })
             })
         })
 
@@ -106,7 +107,7 @@ function showCards(arr) {
                 textEdit.style.display = "block"
                 costEdit.style.display = "block"
             } else {
-                edit.textContent = "Edit"
+                edit.textContent = "Edit";
 
                 let updatedCard = {
                     name: nameEdit.value,
@@ -114,13 +115,13 @@ function showCards(arr) {
                     cost: parseFloat(costEdit.value)
                 }
 
-                nameEdit.style.display = "none"
-                textEdit.style.display = "none"
-                costEdit.style.display = "none"
-                itemName.style.display = "block"
-                itemText.style.display = "block"
-                itemCost.style.display = "block"
-                updated.textContent = `Last updated: ${new Date().toLocaleDateString()}`
+                nameEdit.style.display = "none";
+                textEdit.style.display = "none";
+                costEdit.style.display = "none";
+                itemName.style.display = "block";
+                itemText.style.display = "block";
+                itemCost.style.display = "block";
+                updated.textContent = `Last updated: ${new Date().toLocaleDateString()}`;
 
                 updateCard(card.id, updatedCard).then(() =>
                     getCards()
@@ -141,96 +142,99 @@ function clear() {
     }
 }
 
-let count = document.getElementById("count")
-let total = document.getElementById("total")
-
-count.addEventListener("click", function () {
-    let result = 0
-    activeArr.forEach(card => {
-        console.log(card.cost)
-        result += card.cost
-    })
-    total.textContent = `Total: ${result}$`
-})
-
-let sort = document.getElementById("sort")
-
-sort.addEventListener("input" , function () {
-    sorting()
-})
-
-function sorting () {
-    switch (sort.value) {
-        case "priceUp":
-            clear()
-            activeArr.sort((a, b) => a.cost - b.cost)
-            showCards(activeArr)
-            break
-        case "priceDown":
-            clear()
-            activeArr.sort((a, b) => b.cost - a.cost)
-            showCards(activeArr)
-            break
-        case "nameUp":
-            clear()
-            activeArr.sort((a, b) => a.name.localeCompare(b.name))
-            showCards(activeArr)
-            break
-        case "nameDown":
-            clear()
-            activeArr.sort((a, b) => b.name.localeCompare(a.name))
-            showCards(activeArr)
-            break
-    }
-}
-
 let searchInput = document.getElementById("searchInput")
-let search = document.getElementById("search")
-let clearInput = document.getElementById("clear")
+let searchButton = document.getElementById("search")
+let clearBtn = document.getElementById("clear")
 
-clearInput.addEventListener("click", function () {
-    clearSearch()
-})
-
-function clearSearch () {
-    let arr = []
-    searchInput.value = ""
-    getCards()
-        .then(res => {
-            res.forEach(card => {
-                arr.push(card)
-            })
-            activeArr = arr
-            sorting()
-        })
-    total.innerText = `Total: 0$`
-}
-
-search.addEventListener("click", function () {
+searchButton.addEventListener("click", function () {
     searching()
 })
 
-function searching () {
-    if (searchInput.value.length > 0) {
-        let newArr = []   
-        let input = searchInput.value.toLowerCase().trim()
-        activeArr.forEach(card => {
-            if (card.name.toLowerCase().includes(input)) {
-                newArr.push(card)
-            }
-        })
-        activeArr = newArr
-        showCards(activeArr)
-        sorting()
-    }
-}
-
-searchInput.addEventListener("input", function () {
+searchInput.addEventListener("input" , function () {
     if (searchInput.value.length === 0) {
         clearSearch()
     }
 })
 
+function searching() {
+    if (searchInput.value.length > 0) {
+        const input = searchInput.value.toLowerCase().trim();
+        fetch(`${url}/cards/search?query=${encodeURIComponent(input)}`)
+            .then(res => res.json())
+            .then(data => {
+                activeArr = data
+                showCards(activeArr)
+
+                fetch(`${url}/cards/count?cards=${JSON.stringify(activeArr)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        total.textContent = `Total: ${data.totalCost}$`
+                        count.disabled = true
+                    })
+            })
+    } else {
+        clearSearch()
+    }
+}
+
+clearBtn.addEventListener("click", function () {
+    clearSearch()
+})
+
+function clearSearch() {
+    getCards()
+        .then(res => {
+            activeArr = res
+            showCards(activeArr)
+
+            fetch(`${url}/cards/count`)
+                .then(res => res.json())
+                .then(data => {
+                    total.textContent = `Total: ${data.totalCost}$`
+                });
+        })
+    searchInput.value = ""
+}
+
+let count = document.getElementById("count")
+let total = document.getElementById("total")
+
+count.addEventListener("click", function () {
+    fetch(url + "/cards/count")
+        .then(res => res.json())
+        .then(data => {
+            total.textContent = `Total: ${data.totalCost}$`
+        })
+})
+
+let sortSelect = document.getElementById("sort")
+
+sortSelect.addEventListener("change", function () {
+    sorting()
+})
+
+function sorting () {
+    const selectedOption = sortSelect.value
+    if (selectedOption !== "select") {
+        fetch(`${url}/cards/sort?sort=${selectedOption}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Network response was not ok')
+                }
+                return res.json()
+            })
+            .then(data => {
+                activeArr = data;
+                showCards(activeArr)
+            })
+            .catch(error => {
+                console.error("Error fetching sorted cards:", error)
+            });
+            searchInput.value = ""
+    } else {
+        clearSearch()
+    }
+}
 
 let create = document.getElementById("create")
 let createImg = document.getElementById("createImg")
@@ -291,6 +295,7 @@ create.addEventListener("click", function () {
                 .then(data => {
                 activeArr = data
                 showCards(activeArr)
+                sorting()
                 searching()
                 })
             ) 

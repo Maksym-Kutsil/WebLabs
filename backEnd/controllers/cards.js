@@ -72,3 +72,52 @@ module.exports.deleteCard = function (req, res) {
     cards.splice(cardIndex, 1)
     res.status(204).send()
 }
+
+module.exports.getTotalCost = function (req, res) {
+    const { cards: filteredCards } = req.query
+
+    const cardsToCount = filteredCards ? JSON.parse(filteredCards) : cards
+
+    const totalCost = cardsToCount.reduce((sum, card) => sum + card.cost, 0)
+    res.status(200).json({ totalCost })
+}
+
+
+module.exports.searchCards = function (req, res) {
+    const { query } = req.query
+
+    const filteredCards = cards.filter(card => 
+        card.name.toLowerCase().includes(query.toLowerCase())
+    )
+
+    res.status(200).json(filteredCards)
+}
+
+module.exports.sortCards = function (req, res) {
+    try {
+        const { sort } = req.query
+        let sortedCards
+
+        switch (sort) {
+            case 'priceUp':
+                sortedCards = cards.sort((a, b) => a.cost - b.cost)
+                break
+            case 'priceDown':
+                sortedCards = cards.sort((a, b) => b.cost - a.cost); // Descending order by price
+                break
+            case 'nameUp':
+                sortedCards = cards.sort((a, b) => a.name.localeCompare(b.name))
+                break
+            case 'nameDown':
+                sortedCards = cards.sort((a, b) => b.name.localeCompare(a.name))
+                break
+            default:
+                return res.status(400).json({ error: 'Invalid sort option' })
+        }
+
+        res.json(sortedCards)
+    } catch (error) {
+        console.error("Error sorting cards:", error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+}
