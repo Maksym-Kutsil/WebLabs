@@ -1,4 +1,4 @@
-import { getCards, addCard, updateCard, deleteCard, createCard } from './api.js'
+import { getCards, updateCard, deleteCard, createCard, getTotalCost } from './api.js'
 
 const url = "http://localhost:8080"
 
@@ -16,11 +16,15 @@ class Card {
 let activeArr = []
 const itemContainer = document.getElementById("itemContainer")
 
+let sortSelect = document.getElementById("sort")
+let searchInput = document.getElementById("searchInput")
+
+
 getCards()
     .then(data => {
         activeArr = data
         showCards(activeArr)
-    });
+    })
 
 function showCards(arr) {
     clear()
@@ -86,8 +90,8 @@ function showCards(arr) {
 
         remove.addEventListener("click", function () {
             deleteCard(card.id).then(() => {
-                getCards()
-                    .then(data => {
+                getCards(getSearch(), getSort())
+                        .then(data => {
                         activeArr = data
                         showCards(activeArr)
                     })
@@ -124,11 +128,10 @@ function showCards(arr) {
                 updated.textContent = `Last updated: ${new Date().toLocaleDateString()}`;
 
                 updateCard(card.id, updatedCard).then(() =>
-                    getCards()
-                    .then(data => {
-                    activeArr = data
-                    showCards(activeArr)
-                    searching()
+                    getCards(getSearch(), getSort())
+                        .then(data => {
+                        activeArr = data
+                        showCards(activeArr)
                     })
                 )
             }
@@ -142,7 +145,6 @@ function clear() {
     }
 }
 
-let searchInput = document.getElementById("searchInput")
 let searchButton = document.getElementById("search")
 let clearBtn = document.getElementById("clear")
 
@@ -156,21 +158,22 @@ searchInput.addEventListener("input" , function () {
     }
 })
 
+
+function getSearch () {
+    return searchInput.value.toLowerCase().trim();
+}
+
+function getSort () {
+    return sortSelect.value
+}
+
+
 function searching() {
     if (searchInput.value.length > 0) {
-        const input = searchInput.value.toLowerCase().trim();
-        fetch(`${url}/cards/search?query=${encodeURIComponent(input)}`)
-            .then(res => res.json())
+        getCards(getSearch(), getSort())
             .then(data => {
                 activeArr = data
                 showCards(activeArr)
-
-                fetch(`${url}/cards/count?cards=${JSON.stringify(activeArr)}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        total.textContent = `Total: ${data.totalCost}$`
-                        count.disabled = true
-                    })
             })
     } else {
         clearSearch()
@@ -182,59 +185,34 @@ clearBtn.addEventListener("click", function () {
 })
 
 function clearSearch() {
-    getCards()
-        .then(res => {
-            activeArr = res
-            showCards(activeArr)
-
-            fetch(`${url}/cards/count`)
-                .then(res => res.json())
-                .then(data => {
-                    total.textContent = `Total: ${data.totalCost}$`
-                });
-        })
     searchInput.value = ""
+    getCards(getSearch(), getSort())
+            .then(data => {
+                activeArr = data
+                showCards(activeArr)
+            })
 }
 
 let count = document.getElementById("count")
 let total = document.getElementById("total")
 
 count.addEventListener("click", function () {
-    fetch(url + "/cards/count")
-        .then(res => res.json())
-        .then(data => {
-            total.textContent = `Total: ${data.totalCost}$`
-        })
+    getTotalCost(getSearch()).then(res => total.textContent = `Total: ${res}$`)
 })
 
-let sortSelect = document.getElementById("sort")
 
 sortSelect.addEventListener("change", function () {
     sorting()
 })
 
 function sorting () {
-    const selectedOption = sortSelect.value
-    if (selectedOption !== "select") {
-        fetch(`${url}/cards/sort?sort=${selectedOption}`)
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Network response was not ok')
-                }
-                return res.json()
-            })
+        getCards(getSearch(), getSort())
             .then(data => {
-                activeArr = data;
+                activeArr = data
                 showCards(activeArr)
             })
-            .catch(error => {
-                console.error("Error fetching sorted cards:", error)
-            });
-            searchInput.value = ""
-    } else {
-        clearSearch()
-    }
 }
+
 
 let create = document.getElementById("create")
 let createImg = document.getElementById("createImg")
@@ -277,7 +255,6 @@ create.addEventListener("click", function () {
                 `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
             )
             cards.push(newCard)
-            searchInput.value = ""
             total.innerText = `Total: 0$`
 
             cards.forEach((card, i) => {
@@ -291,13 +268,11 @@ create.addEventListener("click", function () {
             customText.textContent = "Choose img"   
             activeArr = cards
             createCard(newCard).then(() =>
-                getCards()
-                .then(data => {
-                activeArr = data
-                showCards(activeArr)
-                sorting()
-                searching()
-                })
+                getCards(getSearch(), getSort())
+                    .then(data => {
+                        activeArr = data
+                    showCards(activeArr)
+                    })
             ) 
         } else {
             openModal()
@@ -312,6 +287,7 @@ create.addEventListener("click", function () {
         document.body.style.overflowY = "hidden"
     }
 })
+
 
 function openModal () {
     let modal = document.getElementById("modal")

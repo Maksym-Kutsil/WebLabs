@@ -16,8 +16,40 @@ let card3 = new Card (2,"../images/mexico.jpg","Mexico","Ме́ксика (іс�
 let cards = [card1,card2,card3]
 
 module.exports.getUserCards = function (req, res) {
-    res.status(200).json(cards)
+    const { search, sort } = req.query
+
+
+    let filteredCards = cards
+    if (search) {
+        filteredCards = filteredCards.filter(card => 
+            card.name.toLowerCase().includes(search.toLowerCase().trim())
+        )
+    }
+
+    if (sort) {
+        switch (sort) {
+            case 'priceUp':
+                filteredCards = filteredCards.sort((a, b) => a.cost - b.cost)
+                break
+            case 'priceDown':
+                filteredCards = filteredCards.sort((a, b) => b.cost - a.cost)
+                break
+            case 'nameUp':
+                filteredCards = filteredCards.sort((a, b) => a.name.localeCompare(b.name))
+                break
+            case 'nameDown':
+                filteredCards = filteredCards.sort((a, b) => b.name.localeCompare(a.name))
+                break
+            case 'select':
+                break
+            default:
+                return res.status(400).json({ error: 'Invalid sort option' })
+        }
+    }
+
+    res.status(200).json(filteredCards)
 }
+
 
 
 module.exports.createCard = function (req, res) {
@@ -74,50 +106,15 @@ module.exports.deleteCard = function (req, res) {
 }
 
 module.exports.getTotalCost = function (req, res) {
-    const { cards: filteredCards } = req.query
+    const { search } = req.query
 
-    const cardsToCount = filteredCards ? JSON.parse(filteredCards) : cards
-
-    const totalCost = cardsToCount.reduce((sum, card) => sum + card.cost, 0)
-    res.status(200).json({ totalCost })
-}
-
-
-module.exports.searchCards = function (req, res) {
-    const { query } = req.query
-
-    const filteredCards = cards.filter(card => 
-        card.name.toLowerCase().includes(query.toLowerCase())
-    )
-
-    res.status(200).json(filteredCards)
-}
-
-module.exports.sortCards = function (req, res) {
-    try {
-        const { sort } = req.query
-        let sortedCards
-
-        switch (sort) {
-            case 'priceUp':
-                sortedCards = cards.sort((a, b) => a.cost - b.cost)
-                break
-            case 'priceDown':
-                sortedCards = cards.sort((a, b) => b.cost - a.cost); // Descending order by price
-                break
-            case 'nameUp':
-                sortedCards = cards.sort((a, b) => a.name.localeCompare(b.name))
-                break
-            case 'nameDown':
-                sortedCards = cards.sort((a, b) => b.name.localeCompare(a.name))
-                break
-            default:
-                return res.status(400).json({ error: 'Invalid sort option' })
-        }
-
-        res.json(sortedCards)
-    } catch (error) {
-        console.error("Error sorting cards:", error)
-        res.status(500).json({ error: 'Internal Server Error' })
+    let filteredCards = cards
+    if (search) {
+        filteredCards = filteredCards.filter(card => 
+            card.name.toLowerCase().includes(search.toLowerCase().trim())
+        )
     }
+
+    const totalCost = filteredCards.reduce((sum, card) => sum + card.cost, 0)
+    res.status(200).json(totalCost)
 }
