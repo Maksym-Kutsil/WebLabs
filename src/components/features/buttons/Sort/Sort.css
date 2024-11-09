@@ -1,0 +1,9 @@
+.sort {
+    width: 220px;
+    height: 52px;
+    border-radius: 6px;
+    padding: 0 0 0 21px;
+    font-family: inter;
+    appearance: none;
+    background: url('../../../assets/icons/slectVector.svg') no-repeat right 26px center;
+}

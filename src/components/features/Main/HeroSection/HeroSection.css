@@ -35,7 +35,7 @@
     padding: 0 0 0 21px;
     font-family: inter;
     appearance: none;
-    background: url('./images/slectVector.svg') no-repeat right 26px center;
+    background: url('../../../assets/icons/slectVector.svg') no-repeat right 26px center;
 }
 .heroButton {
     padding: 20px 60px;

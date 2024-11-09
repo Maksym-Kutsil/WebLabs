@@ -1,0 +1,15 @@
+#create {
+    width: fit-content;
+    padding: 15px 46px;
+    border: 1px solid rgba(251, 143, 29, 1);
+    color: rgba(251, 143, 29, 1);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inter;
+    text-decoration: none;
+    transition: 0.5s ease-in-out;
+}
+#create:active {
+    transform: scale(0.8);
+}

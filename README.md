@@ -1,5 +1,5 @@
 Лабораторні роботи з дисципліни "Вебтехнології та вебдизайн"
 Виконав: Куціль Максим Юрійович (ІР-21)
-Лабораторна робота №6 (Варіант 2)
-React.js: Home page
-Start creating your React App with a simple Home page (see the link to wireframe above). Your e-commerce app subject is about your entities from previous (3-5) works.
+Лабораторна робота №7 (Варіант 2)
+React.js: Item page
+Description: Continue work on your React App by adding a page for your Item (see the link to wireframe of Item page above). Also, now, you have to make all your previous pages (Home & Catalog) more interactive.

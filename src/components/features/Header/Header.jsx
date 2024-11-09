@@ -1,6 +1,9 @@
 import React , { useRef , useEffect } from "react";
 import "./Header.css";
-import logo from "./images/logo.svg"
+import logo from "../../assets/icons/logo.svg"
+import PrimaryButton from "../buttons/PrimaryButton/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton/SecondaryButton";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     const headerRef = useRef(null)
@@ -103,33 +106,29 @@ const Header = () => {
                 <nav id="navList" ref={navListRef}>
                     <ul className="linkList">
                         <li>
-                            <a href="#" className="linsTop">
+                            <Link to="/" className="linsTop">
                                 Home
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#" className="linsTop">
+                            <Link to="/destinations" className="linsTop">
                                 Destinations
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#" className="linsTop">
+                            <Link className="linsTop">
                                 About
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#" className="linsTop">
+                            <Link className="linsTop">
                                 Partner
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                     <div className="navButtonsContainer">
-                        <a href="#" className="loginBtn">
-                            Login
-                        </a>
-                        <a href="#" className="registerBtn">
-                            Register
-                        </a>
+                        <PrimaryButton name="Login"/>
+                        <SecondaryButton name="Register"/>
                     </div>
                 </nav>
             </div>

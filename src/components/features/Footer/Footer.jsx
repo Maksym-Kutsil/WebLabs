@@ -1,11 +1,11 @@
 import React from "react";
 import "./Footer.css";
-import logo from "./images/logo.svg"
-import facebook from "./images/facebook.svg"
-import instagram from "./images/instagram.svg"
-import linkedin from "./images/linkedin.svg"
-import twitter from "./images/twitter.svg"
-import youtube from "./images/youtube.svg"
+import logo from "../../assets/icons/logo.svg"
+import facebook from "../../assets/icons/facebook.svg"
+import instagram from "../../assets/icons/instagram.svg"
+import linkedin from "../../assets/icons/linkedin.svg"
+import twitter from "../../assets/icons/twitter.svg"
+import youtube from "../../assets/icons/youtube.svg"
 
 const Footer = () => {
     return (

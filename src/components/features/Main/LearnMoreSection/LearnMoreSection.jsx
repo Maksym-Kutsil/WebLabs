@@ -1,6 +1,7 @@
 import React from "react";
 import "./LearnMoreSection.css"
-import learnMoreSectionImg from "./images/learnMoreSectionImg.svg"
+import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton";
+import learnMoreSectionImg from "../../../assets/images/learnMoreSectionImg.svg"
 
 const LearnMoreSection = () => {
     return (
@@ -15,9 +16,7 @@ const LearnMoreSection = () => {
                     to plan and execute their perfect trip, but now, they can also let Lonely
                     Planet Experiences lead the way
                 </p>
-                <a href="#" className="learnMoreButton">
-                    Learn more
-                </a>
+                <SecondaryButton name="Learn more"/>
             </div>
         </section>
     )

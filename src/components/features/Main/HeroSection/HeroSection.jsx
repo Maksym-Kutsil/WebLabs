@@ -1,6 +1,8 @@
 import React from "react";
 import "./HeroSection.css";
-import heroImage from "./images/heroImage.svg"
+import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton";
+import Select from "../../buttons/Select/Select";
+import heroImage from "../../../assets/images/heroImage.svg"
 
 const HeroSection = () => {
     return (
@@ -15,44 +17,14 @@ const HeroSection = () => {
                 </h3>
                 <form className="selectsContainer">
                     <div className="selectionsTop">
-                        <select defaultValue="">
-                            <option value="" disabled hidden>
-                                Location
-                            </option>
-                            <option>option1</option>
-                            <option>option2</option>
-                            <option>option3</option>
-                        </select>
-                        <select defaultValue="">
-                            <option value="" disabled hidden>
-                                Activity
-                            </option>
-                            <option>option1</option>
-                            <option>option2</option>
-                            <option>option3</option>
-                        </select>
+                        <Select name="Location"/>
+                        <Select name="Activity"/>
                     </div>
                     <div className="selectionsBottom">
-                        <select defaultValue="">
-                            <option value="" disabled hidden>
-                                Grade
-                            </option>
-                            <option>option1</option>
-                            <option>option2</option>
-                            <option>option3</option>
-                        </select>
-                        <select defaultValue="">
-                            <option value="" disabled hidden>
-                                Date
-                            </option>
-                            <option>option1</option>
-                            <option>option2</option>
-                            <option>option3</option>
-                        </select>
+                        <Select name="Grade"/>
+                        <Select name="Date"/>
                     </div>
-                    <button type="button" className="heroButton">
-                        Explore
-                    </button>
+                    <SecondaryButton name="Explore"/>
                 </form>
             </div>
             <img className="heroImg" src={heroImage} alt="section1" />

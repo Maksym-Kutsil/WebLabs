@@ -41,36 +41,6 @@ nav {
     display: flex;
     gap: 18px;
 }
-.loginBtn {
-    padding: 15px 46px;
-    border: 1px solid rgba(251, 143, 29, 1);
-    color: rgba(251, 143, 29, 1);
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 500;
-    font-family: inter;
-    text-decoration: none;
-    transition: 0.5s ease-in-out;
-}
-.registerBtn {
-    padding: 15px 36px;
-    color: white;
-    border: 0;
-    background-color: rgba(251, 143, 29, 1);
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 500;
-    font-family: inter;
-    text-decoration: none;
-    border: 1px solid rgba(251, 143, 29, 1);
-    transition: 0.5s ease-in-out;
-}
-.loginBtn:active {
-    transform: scale(0.8);
-}
-.registerBtn:active {
-    transform: scale(0.8);
-}
 #navContainer {
     display: none;
     flex-direction: column;
