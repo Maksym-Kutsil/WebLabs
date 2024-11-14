@@ -1,6 +1,7 @@
-import React from "react";
-import Edit from "../../buttons/Edit/Edit";
-import Remove from "../../buttons/Remove/Remove";
+import React  from "react"
+import Edit from "../../buttons/Edit/Edit"
+import Remove from "../../buttons/Remove/Remove"
+import { Link } from "react-router-dom"
 
 const SingleItem = (props) => {
     return (
@@ -8,12 +9,12 @@ const SingleItem = (props) => {
             <img src={props.img} />
             <div className="itemInfo">
                 <h2>{props.name}</h2>
-                <p className="cardText">{props.text}</p>
                 <strong>{props.cost}$</strong>
                 <p className="updated">Last updated:{props.lastUpdated}</p>
                 <div className="buttons">
-                    <Edit/>
-                    <Remove/>
+                    <Edit id={props.id}/>
+                    <Remove id={props.id}/>
+                    <Link to={`/about/${props.id}`} className="link">About</Link>
                 </div>
             </div>
         </div>

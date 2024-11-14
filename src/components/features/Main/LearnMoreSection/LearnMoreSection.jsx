@@ -1,6 +1,6 @@
-import React from "react";
+import React from "react"
 import "./LearnMoreSection.css"
-import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton";
+import SecondaryButton from "../../buttons/SecondaryButton/SecondaryButton"
 import learnMoreSectionImg from "../../../assets/images/learnMoreSectionImg.svg"
 
 const LearnMoreSection = () => {

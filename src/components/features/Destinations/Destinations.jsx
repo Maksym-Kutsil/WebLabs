@@ -1,13 +1,16 @@
-import React from "react";
-import Menu from "./Menu/Menu";
-import Items from "./Items/Items";
+import React from "react"
+import Menu from "./Menu/Menu"
+import Items from "./Catalog/Catalog"
 import "./Destinations.css"
+import Modal from "../Modal/Modal"
+
 
 const Destinations = () => {
     return (
         <main>
-            <Menu/>
-            <Items/>
+                <Modal/>
+                <Menu/>
+                <Items/>
         </main>
     )
 }

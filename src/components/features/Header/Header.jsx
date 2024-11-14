@@ -1,11 +1,21 @@
-import React , { useRef , useEffect } from "react";
-import "./Header.css";
+import React , { useRef , useEffect , useContext } from "react"
+import "./Header.css"
 import logo from "../../assets/icons/logo.svg"
-import PrimaryButton from "../buttons/PrimaryButton/PrimaryButton";
-import SecondaryButton from "../buttons/SecondaryButton/SecondaryButton";
-import { Link } from "react-router-dom";
+import PrimaryButton from "../buttons/PrimaryButton/PrimaryButton"
+import SecondaryButton from "../buttons/SecondaryButton/SecondaryButton"
+import { DataContext } from "../../page/HomeLayout/HomeLayout"
+import { Link } from "react-router-dom"
 
 const Header = () => {
+    const { about } = useContext(DataContext)
+    let item
+
+    if (about) {
+        item = about.id
+    } else {
+        item = -1
+    }
+
     const headerRef = useRef(null)
     const burgerRef = useRef(null)
     const navListRef = useRef(null)
@@ -116,13 +126,13 @@ const Header = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link className="linsTop">
+                            <Link to={`/about/${item}`} className="linsTop">
                                 About
                             </Link>
                         </li>
                         <li>
-                            <Link className="linsTop">
-                                Partner
+                            <Link to="/cart" className="linsTop">
+                                Cart
                             </Link>
                         </li>
                     </ul>

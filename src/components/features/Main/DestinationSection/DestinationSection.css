@@ -33,16 +33,18 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 25px;
+    row-gap: 25px;
+    overflow: hidden;
 }
-.container {
+.destinationContainer {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
 }
-.container:hover .card {
+.destinationContainer:hover .card {
     transform: scale(1.2);
 }
-.container:hover .containerText {
+.destinationContainer:hover .containerText {
     opacity: 0;
 }
 .card {
@@ -117,6 +119,22 @@
 }
 .showMoreBtn {
     padding-top: 50px;
-    display: flex;
-    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+.showMoreBtn button {
+    padding: 15px 36px;
+    color: white;
+    border: 0;
+    background-color: rgba(251, 143, 29, 1);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inter;
+    text-decoration: none;
+    border: 1px solid rgba(251, 143, 29, 1);
+    transition: 0.5s ease-in-out;
+}
+.showMoreBtn button:active {
+    transform: scale(0.8);
 }

@@ -1,7 +1,7 @@
-import React from "react";
-import HeroSection from "./HeroSection/HeroSection";
-import LearnMoreSection from "./LearnMoreSection/LearnMoreSection";
-import DestinationSection from "./DestinationSection/DestinationSection";
+import React from "react"
+import HeroSection from "./HeroSection/HeroSection"
+import LearnMoreSection from "./LearnMoreSection/LearnMoreSection"
+import DestinationSection from "./DestinationSection/SingleDestination"
 import "./Main.css"
 
 const Main = () => {
