@@ -6,9 +6,6 @@ import "./Catalog.css"
 import { getCards } from "../../../api.js"
 import ClipLoader from "react-spinners/ClipLoader";
 
-
-
-jj
 const Items = () => {
     const { data, setData, search, sort, continents, price } = useContext(DataContext);
     const [loading, setLoading] = useState(false)
