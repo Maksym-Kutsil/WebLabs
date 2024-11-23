@@ -1,5 +1,5 @@
 Лабораторні роботи з дисципліни "Вебтехнології та вебдизайн"
 Виконав: Куціль Максим Юрійович (ІР-21)
-Лабораторна робота №3 (Варіант 2)
-CRUD Javascript App: View Page
-Description: In this work, you have to make a simple presentation part of a website - View Page
+Лабораторна робота №4 (Варіант 2)
+CRUD Javascript App: Create/Edit Pages
+Description: In this work, you need to continue working and add two new parts to your website
