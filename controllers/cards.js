@@ -33,7 +33,7 @@ let destination2 = new Destination(
 )
 let destination3 = new Destination(
     2,
-    "http://localhost:8080/images/destinationSectionImg3.png",
+    "http://localhost:8080/images/destinationSectionImg3.jpg",
     "Vevey",
     1500,
     "2023-10-15",
@@ -66,12 +66,12 @@ let cards = [destination1, destination2, destination3, destination4,destination5
 
 
 module.exports.getUserCards = function (req, res) {
-    const { search, sort, continents , price } = req.query
+    const { search, sort, continents, price } = req.query
 
     let filteredCards = cards
 
     if (search) {
-        filteredCards = filteredCards.filter(card =>
+        filteredCards = filteredCards.filter(card => 
             card.name.toLowerCase().includes(search.toLowerCase().trim())
         )
     }
@@ -90,20 +90,24 @@ module.exports.getUserCards = function (req, res) {
             case 'Z-A':
                 filteredCards = filteredCards.sort((a, b) => b.name.localeCompare(a.name))
                 break
+            case 'Sort':
+                break
+            default:
+                return res.status(400).json({ error: 'Invalid sort option' })
         }
     }
 
     if (continents) {
-        filteredCards = filteredCards.filter(card =>
-            card.continent.toLowerCase() === continents.toLowerCase().trim()
+        filteredCards = filteredCards.filter(card => 
+            card.continent.toLowerCase().includes(continents.toLowerCase().trim())
         )
-    }   
+    }
 
     if (price) {
-        filteredCards = filteredCards.filter(card =>
-            card.cost >= +price
+        filteredCards = filteredCards.filter(card => 
+            card.cost >= price
         )
-    } 
+    }
 
     res.status(200).json(filteredCards)
 }
@@ -111,17 +115,18 @@ module.exports.getUserCards = function (req, res) {
 
 
 module.exports.createCard = function (req, res) {
-    const { img, name, cost, continent, country  } = req.body
+    const { id, img, name, cost, lastUpdated, continent, country, key } = req.body
     let now = new Date()
     let newDate = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
     const newCard = {
-        id: cards.length,
+        id,
         img,
         name,
         cost,
+        lastUpdated: newDate,
         continent,
         country,
-        lastUpdated: newDate
+        key
     }
 
     cards.push(newCard)
@@ -130,7 +135,7 @@ module.exports.createCard = function (req, res) {
 
 module.exports.updateCard = function (req, res) {
     const { id } = req.params
-    const {  img, name, cost, continent, country } = req.body
+    const {  img, name, cost, lastUpdated, continent, country } = req.body
 
     const cardIndex = cards.findIndex(card => card.id == id)
     if (cardIndex === -1) {
@@ -142,13 +147,13 @@ module.exports.updateCard = function (req, res) {
 
     const updatedCard = {
         ...cards[cardIndex],
+        img,
         name,
         cost,
+        lastUpdated: newDate,
         continent,
         country,
-        img,
-        lastUpdated: newDate
-    };
+    }
 
     cards[cardIndex] = updatedCard
     res.status(200).json(updatedCard)
@@ -170,7 +175,6 @@ module.exports.getTotalCost = function (req, res) {
     const { search, continents, price } = req.query
 
     let filteredCards = cards
-
     if (search) {
         filteredCards = filteredCards.filter(card => 
             card.name.toLowerCase().includes(search.toLowerCase().trim())
@@ -178,16 +182,16 @@ module.exports.getTotalCost = function (req, res) {
     }
 
     if (continents) {
-        filteredCards = filteredCards.filter(card =>
-            card.continent.toLowerCase() === continents.toLowerCase().trim()
+        filteredCards = filteredCards.filter(card => 
+            card.continent.toLowerCase().includes(continents.toLowerCase().trim())
         )
-    }    
+    }
 
     if (price) {
-        filteredCards = filteredCards.filter(card =>
-            card.cost >= +price
+        filteredCards = filteredCards.filter(card => 
+            card.cost >= price
         )
-    } 
+    }
 
     const totalCost = filteredCards.reduce((sum, card) => sum + card.cost, 0)
     res.status(200).json(totalCost)
