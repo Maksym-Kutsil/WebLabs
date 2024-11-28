@@ -1,92 +1,64 @@
-import React, { useContext } from "react"
+import React, { useState, useEffect } from "react"
 import CloseImg from "../../assets/icons/closeBtn.png"
-import { ModalContext } from "../../../providers/ModalContext"
-import { DataContext } from "../../../providers/DataContext"
-import { createCard , updateCard } from "../../api"
+import { createCard, updateCard } from "../../api"
+import { useDispatch, useSelector } from "react-redux"
+import { setModal, setUpdate, updateCard as updateReduxCard, createCard as createReduxCard } from "../../../redux/Actions/cardActions"
 import "./Modal.css"
 
 const Modal = () => {
-    const {  data, setData , search, sort , continents , price } = useContext(DataContext)
-    const { modalValue, setModalValue, name, setName, cost, setCost, country, setCountry, id, img, setImg, continent, setContinent } = useContext(ModalContext)
+    const dispatch = useDispatch()
+    const { update, modal, data } = useSelector((state) => state.cards)
+
+    const [name, setName] = useState("")
+    const [country, setCountry] = useState("")
+    const [cost, setCost] = useState("")
+    const [continent, setContinent] = useState("")
+    const [img, setImg] = useState("")
+
+    useEffect(() => {
+        if (update) {
+            setName(update.name)
+            setCountry(update.country)
+            setCost(update.cost)
+            setContinent(update.continent)
+            setImg(update.img)
+        }
+    }, [update])
 
     const Close = () => {
-        setModalValue(false)
+        dispatch(setModal(false))
     }
 
-    const handleEdit = () => {
-        const now = new Date()
-        const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
-    
-        const newItem = {
-            id: id >= 0 ? id : data.length,
-            img,
+    const handleSave = () => {
+        const now = new Date();
+        const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`
+
+        const newCard = {
+            id: update ? update.id : data.length,
             name,
-            cost: parseFloat(cost),
-            lastUpdated: formattedDate,
-            continent,
             country,
-            key: id >= 0 ? id : data.length,
+            cost: parseFloat(cost),
+            continent,
+            img,
+            lastUpdated: formattedDate,
         }
-    
-        let updatedData
-        if (id >= 0) {
-            updatedData = data.map(item => item.id === id ? newItem : item)
-            updateCard(id, newItem)
-        } else {
-            updatedData = [...data, newItem]
-            createCard(newItem)
-        }
-    
-        if (search) {
-            updatedData = updatedData.filter(item =>
-                item.name.toLowerCase().includes(search.toLowerCase().trim())
-            )
-        }
-    
-        if (continents) {
-            updatedData = updatedData.filter(item =>
-                item.continent.toLowerCase() === continents.toLowerCase().trim()
-            )
-        }
-    
-        if (price) {
-            updatedData = updatedData.filter(item =>
-                item.cost >= +price
-            )
-        }
-    
-        if (sort) {
-            switch (sort) {
-                case '0-99':
-                    updatedData = updatedData.sort((a, b) => a.cost - b.cost)
-                    break
-                case '99-0':
-                    updatedData = updatedData.sort((a, b) => b.cost - a.cost)
-                    break
-                case 'A-Z':
-                    updatedData = updatedData.sort((a, b) => a.name.localeCompare(b.name))
-                    break
-                case 'Z-A':
-                    updatedData = updatedData.sort((a, b) => b.name.localeCompare(a.name))
-                    break
-            }
-        }
-    
-        setData(updatedData)
-    
-        setModalValue(false)
-    }
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0]
-        if (file) {
-            const imageUrl = URL.createObjectURL(file)
-            setImg(imageUrl)
+        if (update) {
+            updateCard(newCard.id, newCard).then(() => {
+                dispatch(updateReduxCard(update.id, newCard))
+                dispatch(setUpdate(""))
+            })
+        } else {
+            createCard(newCard).then(() => {
+            dispatch(createReduxCard(newCard))
+            })
         }
+
+        Close()
     }
 
     return (
-        modalValue && (
+        modal && (
             <div id="modal">
                 <div className="modal">
                     <button id="closeBtn" onClick={Close}>
@@ -95,30 +67,33 @@ const Modal = () => {
                     <input
                         type="text"
                         id="name"
+                        placeholder="Destination name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Destination name"
                     />
                     <input
                         type="text"
                         id="country"
+                        placeholder="Country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
-                        placeholder="Country"
                     />
                     <input
                         type="number"
                         id="cost"
+                        placeholder="Cost"
                         value={cost}
                         onChange={(e) => setCost(e.target.value)}
-                        placeholder="Cost"
                     />
-                    <select 
-                        name="continents" 
-                        id="continents" 
+                    <select
+                        name="continents"
+                        id="continents"
                         value={continent}
-                        onChange={(e) => setContinent(e.target.value)}>
-                        <option value="Continent" defaultValue>Continent</option>
+                        onChange={(e) => setContinent(e.target.value)}
+                    >
+                        <option value="" disabled>
+                            Continent
+                        </option>
                         <option value="Europe">Europe</option>
                         <option value="Asia">Asia</option>
                         <option value="South America">South America</option>
@@ -127,9 +102,13 @@ const Modal = () => {
                     <input
                         type="file"
                         id="img"
-                        onChange={handleImageChange}
+                        onChange={(e) =>
+                            e.target.files[0] && setImg(URL.createObjectURL(e.target.files[0]))
+                        }
                     />
-                    <button className="save" onClick={handleEdit}>Save</button>
+                    <button className="save" onClick={handleSave}>
+                        Save
+                    </button>
                 </div>
             </div>
         )

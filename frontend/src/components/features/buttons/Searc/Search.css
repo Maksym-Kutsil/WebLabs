@@ -42,3 +42,8 @@
 #clear:active {
     transform: scale(0.8);
 }
+.searchContainer {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}

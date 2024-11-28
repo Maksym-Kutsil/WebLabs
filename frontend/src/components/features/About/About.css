@@ -99,6 +99,16 @@ h2 {
     gap: 30px;
 }
 
+.buttonsContainer select {
+    width: 150px;
+    height: 52px;
+    border-radius: 6px;
+    padding: 0 0 0 21px;
+    font-family: inter;
+    appearance: none;
+    background: url('../../../components/assets/icons/slectVector.svg') no-repeat right 26px center;
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

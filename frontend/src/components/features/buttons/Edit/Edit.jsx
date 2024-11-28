@@ -1,28 +1,15 @@
-import React, { useContext } from "react"
 import "./Edit.css"
-import { ModalContext } from "../../../../providers/ModalContext"
-import { DataContext } from "../../../../providers/DataContext"
+import { setUpdate, setModal } from "../../../../redux/Actions/cardActions"
+import { useDispatch, useSelector } from "react-redux"
 
 const Edit = ({ id }) => {
-    const {
-        setModalValue, setName, setCost, setImg, setCountry, setId ,setContinent
-    } = useContext(ModalContext)
-    const { data } =  useContext(DataContext)
+    const { data } = useSelector((state) => state.cards)
+    const dispatch = useDispatch()
 
     const handleEdit = () => {
-        const itemToEdit = data.find(item => item.id === id)
-
-        if (itemToEdit) {
-            setName(itemToEdit.name)
-            setCost(itemToEdit.cost)
-            setImg(itemToEdit.img)
-            setCountry(itemToEdit.country)
-            setContinent(itemToEdit.continent)
-            setId(id)
-            setModalValue(true)
-        } else {
-            console.error("Item not found for editing")
-        }
+        const itemToUpdate = data.filter(item => item.id == id)
+        dispatch(setUpdate(itemToUpdate[0]))
+        dispatch(setModal(true))
     }
 
     return <button className="edit" onClick={handleEdit}>Edit</button>;

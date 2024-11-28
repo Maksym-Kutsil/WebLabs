@@ -1,10 +1,11 @@
-import React, { useState , useContext } from "react"
-import { DataContext } from "../../../../providers/DataContext"
+import React, { useState } from "react"
 import { getTotalCost } from "../../../api"
+import { useSelector } from "react-redux"
 import "./Count.css"
 
 const Count = () => {
-    const {  search , continents , price } = useContext(DataContext)
+    const { search, continents, price } = useSelector((state) => state.cards)
+
     const  [total, setTotal] = useState(0)
 
     const Counting  = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React from "react"
 import Header from "../../features/Header/Header"
 import Footer from "../../features/Footer/Footer"
 import "./HomeLayout.css"

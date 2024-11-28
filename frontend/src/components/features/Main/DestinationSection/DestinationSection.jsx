@@ -1,29 +1,34 @@
-import React, { useState , useEffect, useContext } from "react"
+import React, { useState, useEffect } from "react"
 import "./DestinationSection.css"
 import vector from "../../../assets/icons/vector.svg"
 import SingleDistination from "./SingleDestination"
-import { DataContext } from "../../../../providers/DataContext"
-import { getCards } from "../../../api"
+import { useDispatch, useSelector } from "react-redux"
+import { setData } from "../../../../redux/Actions/cardActions"
 import { Link } from "react-router-dom"
+import { getCards } from "../../../api"
 
 const DestinationSection = () => {
-    const { data, setData , search, sort , continents , price } = useContext(DataContext)
-    const [displayedData, setDisplayedData] = useState([])
+  const dispatch = useDispatch()
+  const { data } = useSelector((state) => state.cards)
+  const [displayedData, setDisplayedData] = useState([])
 
-    useEffect(() => {
-        getCards(search,sort,continents,price)
-        .then(res => {
-            setData(res)
-            setDisplayedData(res.slice(0, 4))
-        })
-    },[search,sort,continents,price])
-    
-    
-    
-    const showAll = () => {
-      const nextDestinations = data.slice(0, displayedData.length + 4)
-      setDisplayedData(nextDestinations)
-    }
+  useEffect(() => {
+    getCards()
+      .then((res) => {
+        dispatch(setData(res))
+        setDisplayedData(res.slice(0, 4))
+      })
+      .catch((err) => {
+        console.error("Error fetching cards:", err)
+      })
+  }, [dispatch])
+
+  const showAll = () => {
+    setDisplayedData((prevDisplayedData) => {
+      const nextDestinations = data.slice(0, prevDisplayedData.length + 4)
+      return nextDestinations;
+    })
+  }
 
   return (
     <section className="destenationSection">
@@ -35,8 +40,8 @@ const DestinationSection = () => {
         </Link>
       </div>
       <div className="destenationBottom">
-      {displayedData.map(({ name, country, img, key }) => (
-          <SingleDistination key={key} name={name} country={country} img={img} />
+        {displayedData.map(({ name, country, img, id }) => (
+          <SingleDistination key={id} name={name} country={country} img={img} />
         ))}
       </div>
       <div className="showMoreBtn">

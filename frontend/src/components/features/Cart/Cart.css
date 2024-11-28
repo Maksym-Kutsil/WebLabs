@@ -22,7 +22,7 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
-    width: 300px;
+    width: 350px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -72,4 +72,34 @@
     padding: 20px;
     display: flex;
     justify-content: end;
+    align-items: center;
+    gap: 20px;
+}
+
+.totalCost {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 150px;
+    left: 150px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.operators {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: 0;
+    cursor: pointer;
+    background-color: gray;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.count {
+    font-size: 20px;
+    font-weight: bold;
 }

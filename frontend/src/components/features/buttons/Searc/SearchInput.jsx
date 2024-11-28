@@ -1,23 +1,37 @@
-import React from "react"
-import { DataContext } from "../../../../providers/DataContext"
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import { setSearch } from "../../../../redux/Actions/cardActions"
 import "./Search.css"
 
 const SearchInput = () => {
-    const { setSearch , search } = React.useContext(DataContext)
+    const [value, setValue] = useState("")
+    const dispatch = useDispatch()
 
-    const handleSearch = (event) => {
-        const query = event.target.value
-        setSearch(query)
+    const handleInputChange = (event) => {
+        const inputValue = event.target.value
+        setValue(inputValue)
+        if (!inputValue.trim()) {
+            dispatch(setSearch(""))
+        }
+    }
+
+    const handleSearch = () => {
+        dispatch(setSearch(value.trim()))
     }
 
     return (
-        <input
-            type="text"
-            placeholder="Search..."
-            id="searchInput"
-            value={search}
-            onChange={handleSearch}
-        />
+        <div className="searchContainer">
+            <input
+                type="text"
+                placeholder="Search..."
+                id="searchInput"
+                value={value}
+                onInput={handleInputChange}
+            />
+            <button id="search" onClick={handleSearch}>
+                Search
+            </button>
+        </div>
     )
 }
 

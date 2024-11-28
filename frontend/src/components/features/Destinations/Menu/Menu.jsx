@@ -1,13 +1,12 @@
-import React, { useContext } from "react"
+import React from "react"
 import Count from "../../buttons/Count/Count"
 import Sort from "../../buttons/Sort/Sort"
-import { DataContext } from "../../../../providers/DataContext"
-import { ModalContext } from "../../../../providers/ModalContext"
+import { useDispatch } from "react-redux"
+import { setSort , setContinents, setPrice, setUpdate, setModal } from "../../../../redux/Actions/cardActions"
 import "./Menu.css"
 
 const Menu = () => {
-    const { setSort, setContinents , setPrice } = useContext(DataContext)
-    const { setModalValue, setName, setCost, setImg, setLastUpdated, setContinent } = useContext(ModalContext)
+    const dispatch = useDispatch()
 
     const sortRef = React.useRef(null);
     const filterContinentRef = React.useRef(null)
@@ -15,46 +14,40 @@ const Menu = () => {
 
     const handleSort = () => {
         const query = sortRef.current.value
-        if (query) {
-            setSort(query)
-        }
-        else {
-            setSort("")
+        if (query !== "Sort") {
+            dispatch(setSort(query))
+        } else {
+            dispatch(setSort(""))
         }
     }
 
     const continentFilter = () => {
-        const query = filterContinentRef.current.value;
+        const query = filterContinentRef.current.value
         if (query !== "Continents") {
-            setContinents(query);
+            dispatch(setContinents(query))
         } else {
-            setContinents("")
+            dispatch(setContinents(""))
         }
     }
     
-
-
     const handlePriceFilter = () => {
         const query = filterPriceRef.current.value
         if (query !== "Price") {
-            setPrice(+query)
+            dispatch(setPrice(query))
         } else {
-            setPrice("")
+            dispatch(setPrice(""))
         }
     }
 
-    const openCreateModal = () => {
-        setName("")
-        setCost("")
-        setImg("")
-        setLastUpdated("")
-        setContinent("")
-        setModalValue(true)
+    const handleCreate = () => {
+        dispatch(setUpdate(""))
+        dispatch(setModal(true))
     }
+
 
     return (
         <section className="menu">
-            <button className="addNewDestination" onClick={openCreateModal}>Add new destination</button>
+            <button className="addNewDestination" onClick={handleCreate}>Add new destination</button>
             <h1 className="headline">Manage destination</h1>
             <div className="sortContainer">
                 <h3>Sort by:</h3>
